@@ -8,7 +8,7 @@ export interface ProductListPageProps {
 }
 
 const Products = (props: ProductListPageProps) => {
-  const { products, pagination } = props;
+  const { products } = props;
   console.log("📢[index.tsx:11]: ", products);
 
   return (
@@ -17,7 +17,7 @@ const Products = (props: ProductListPageProps) => {
       <ul>
         {products.map((product: any, index) => (
           <li key={index}>
-            <Link href={`/products/${product.id}`}>
+            <Link href={`/products/${product.id}`} passHref={true}>
               <p>{product.title}</p>
             </Link>
           </li>
@@ -30,7 +30,7 @@ const Products = (props: ProductListPageProps) => {
 export default Products;
 
 export const getStaticProps: GetStaticProps<ProductListPageProps> = async (
-  context: GetStaticPropsContext
+  _context: GetStaticPropsContext
 ) => {
   // This function run in server side
 
