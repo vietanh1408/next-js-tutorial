@@ -27,6 +27,10 @@ const Products = (props: ProductListPageProps) => {
   );
 };
 
+Products.defaultProps = {
+  protected: true,
+};
+
 export default Products;
 
 export const getStaticProps: GetStaticProps<ProductListPageProps> = async (

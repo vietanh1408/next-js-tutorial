@@ -1,9 +1,31 @@
 import Layout from "@/components/Layout";
-import AuthContextProvider from "@/utils/context";
-import type { AppProps } from "next/app";
+import AuthContextProvider, { useAuthContext } from "@/utils/context";
+import { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { useLayoutEffect } from "react";
 import "../styles/globals.css";
 
-function App(props: AppProps) {
+type AppPropsType = AppProps & {
+  Component: {
+    defaultProps: {
+      protected: boolean;
+    };
+  };
+};
+
+function App(props: AppPropsType) {
+  const { Component } = props;
+
+  const { isAuthenticated } = useAuthContext();
+
+  const router = useRouter();
+
+  useLayoutEffect(() => {
+    if (Component.defaultProps?.protected && !isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isAuthenticated, router, Component.defaultProps]);
+
   return (
     <AuthContextProvider>
       <Layout {...props} />

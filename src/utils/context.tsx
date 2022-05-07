@@ -35,8 +35,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const checkAuth = useCallback(async () => {
     const token = JWTManager.getToken();
 
-    console.log("token: ", token);
-
     if (token) setIsAuthenticated(true);
     else {
       const success = await JWTManager.getRefreshToken();
